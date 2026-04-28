@@ -15,9 +15,15 @@ import threading
 from queue import Queue
 
 # --- Configuration ---
-# IMPORTANT: Paste your keys here
-GOOGLE_API_KEY = "AIzaSyBE4voEab4qTmOTFmdykQnKqZvA0qE6OnY"
-PICOVOICE_ACCESS_KEY = "4AX6Pag04YDmlLoaixQz4Q4fpVr5wCsL0d0EBUU/E6btMBFKrMu8og=="
+# IMPORTANT: Set your API keys as environment variables (see .env.example)
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+PICOVOICE_ACCESS_KEY = os.environ.get("PICOVOICE_ACCESS_KEY", "")
+
+if not GOOGLE_API_KEY or not PICOVOICE_ACCESS_KEY:
+    raise EnvironmentError(
+        "Missing required API keys. Please set GOOGLE_API_KEY and "
+        "PICOVOICE_ACCESS_KEY as environment variables (see .env.example)."
+    )
 
 # --- Setup ---
 genai.configure(api_key=GOOGLE_API_KEY)
